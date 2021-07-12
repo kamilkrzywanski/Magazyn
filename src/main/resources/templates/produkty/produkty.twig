@@ -1,0 +1,46 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Towary tabela{% endblock %}
+{% block header %}
+    Towary
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Stan magazynowy</th>
+            <th scope="col">Długość [cm]</th>
+            <th scope="col">Szerokość [cm]</th>
+            <th scope="col">Wysokość [cm]</th>
+            <th scope="col">Kategoria</th>
+            <th scope="col">Edycja</th>
+            <th scope="col">Usuń</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for produkt in produkty %}
+            <tr>
+                <td>{{ produkt.getIdProdukt}}</td>
+                <td>{{ produkt.getNazwa }}</td>
+                <td>{{ produkt.getStanMagazynowy }}</td>
+                <td>{{ produkt.getDlugosc }}</td>
+                <td>{{ produkt.getSzerokosc }}</td>
+                <td>{{ produkt.getWysokosc }}</td>
+                <td>{{ produkt.kategoria.getNazwa }}</td>
+                <td> <a class="btn btn-info" href="/produkty/updateForm?id={{ produkt.getIdProdukt}}" role="button">Edytuj</a></td>
+                <td> <a class="btn btn-info" href="/produkty/delete?id={{ produkt.getIdProdukt}}" role="button">Usuń</a></td>
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+        <a class="btn btn-info" href="/produkty/addForm" role="button">Dodaj towar</a>
+
+
+{% endblock %}

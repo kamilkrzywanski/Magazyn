@@ -1,0 +1,37 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Kategorie towarów{% endblock %}
+{% block header %}
+    Kategorie towarów
+{% endblock %}
+{% block main %}
+    {{siema}}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Edycja</th>
+            <th scope="col">Usuń</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for kategoria in kategorie %}
+            <tr>
+                <td>{{ kategoria.getIdKategoria}}</td>
+                <td>{{ kategoria.getNazwa }}</td>
+                <td> <a class="btn btn-info" href="/kategorie/updateForm?id={{ kategoria.getIdKategoria}}" role="button">Edytuj</a></td>
+                <td> <a class="btn btn-info" href="/kategorie/usun/{{ kategoria.getIdKategoria}}" role="button">Usuń</a></td>
+
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+        <a class="btn btn-info" href="/kategorie/addForm" role="button">Dodaj nową kategorię</a>
+
+{% endblock %}

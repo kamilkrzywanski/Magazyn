@@ -1,0 +1,54 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania zamówienia
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania zamówienia</h2>
+{% endblock %}
+
+{% block form %}
+        <form id="signupForm" action="/zamowienia/dodaj" method="POST">
+        <fieldset>
+            <legend> </legend>
+            <div class="form-group">
+                <label for="adres">Dane adresowe</label>
+                <input type="text" class="form-control" id="adres" name="adres" required>
+
+
+
+                <div class="form-group">
+                    <label for="selectPracownik">Pracownik</label>
+                    <select class="form-control" id="selectPracownik" name="selectPracownik" required>
+                        <option value="">--Wybierz pracownika--</option>
+                        {% for pracownik in pracownicy %}
+                            <option value="{{pracownik.idPracownik}}" >{{pracownik.getImie}} {{pracownik.getNazwisko}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                 <div class="form-group">
+                                    <label for="selectMagazyn">Magazyn</label>
+                                    <select class="form-control" id="selectMagazyn" name="selectMagazyn" required>
+                                        <option value="">--Wybierz magazyn--</option>
+                                        {% for magazyn in magazyny %}
+                                            <option value="{{magazyn.idMagazyn}}" >{{magazyn.getNazwa}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+
+                <label for="data_zlozenia">Data złożenia</label>
+                <input type="date" class="form-control" id="data_zlozenia" name="data_zlozenia" required>
+
+                <label for="termin_realizacji">Termin realizacji</label>
+                <input type="date" class="form-control" id="termin_realizacji" name="termin_realizacji" required>
+
+            </div>
+        </fieldset>
+        <br/>
+            <button type="submit" class="btn btn-info">Dodaj</button>
+    </form>
+
+{% endblock %}

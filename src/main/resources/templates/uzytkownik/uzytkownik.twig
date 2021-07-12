@@ -1,0 +1,36 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block header %}
+    Uzytkownicy
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">login</th>
+                <th scope="col">haslo</th>
+                <th scope="col">email</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for uzytkownik in uzytkownicy %}
+        <tr>
+          <td>{{ uzytkownik.getIdUzytkownik }}</td>
+          <td>{{ uzytkownik.getLogin }}</td>
+          <td>{{ uzytkownik.getHaslo }}</td>
+          <td>{{ uzytkownik.getEmail }}</td>
+          <td><a class="nav-link" href="/uzytkownik/updateForm/{{ uzytkownik.getIdUzytkownik }}">Edytuj</a></td>
+          <td><a class="nav-link" href="/uzytkownik/usun/{{ uzytkownik.getIdUzytkownik }}">Usuñ</a></td>
+        </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+    
+    <a class="btn btn-info" href="/uzytkownik/addForm" role="button">Dodaj</a>
+
+{% endblock %}

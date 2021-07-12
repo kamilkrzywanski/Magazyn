@@ -1,0 +1,69 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+ {% if kierownik == 1 %}
+    Formularz rejestracji kierownika
+    {% else %}
+   Formularz rejestracji pracownika
+    {% endif %}{% endblock %}
+
+{% block header %}
+ {% if kierownik == 1 %}
+    <h2>Formularz rejestracji kierownika</h2>
+    {% else %}
+    <h2>Formularz rejestracji pracownika</h2>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block form %}
+    {% if update == 1 %}
+        <form id="signupForm" action="/pracownicy/update/{{ pracownik.getIdPracownik }}" method="POST">
+     {% elseif kierownik == 1 %}
+                <form id="signupForm" action="/kierownicy/dodaj" method="POST">
+    {% else %}
+        <form id="signupForm" action="/pracownicy/dodaj" method="POST">
+    {% endif %}
+
+
+        <fieldset>
+            <legend> Dane Personalne </legend>
+            <div class="form-group">
+                <label for="imie">Imie</label>
+                <input type="text" class="form-control" id="imie" name="imie" value="{{pracownik.getImie}}" required>
+            </div>
+            <div class="form-group">
+                <label for="nazwisko">Nazwisko</label>
+                <input type="text" class="form-control" id="nazwisko" name="nazwisko" value="{{pracownik.getNazwisko}}" required>
+            </div>
+            <div class="form-group">
+                <label for="telefon">Telefon</label>
+                <input type="text" class="form-control" id="telefon" name="telefon" value="{{pracownik.getTelefon}}" required>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend> Dane Konta </legend>
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" name="login" value="{{pracownik.uzytkownik.getLogin}} " required>
+            </div>
+            <div class="form-group">
+                <label for="haslo">Hasło</label>
+                <input type="password" class="form-control" id="haslo" name="haslo" value="" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{pracownik.uzytkownik.getEmail}} " required>
+            </div>
+        </fieldset>
+
+        <br/>
+        {% if update == 1 %}
+            <button type="submit" class="btn btn-info">Zmień</button>
+        {% else %}
+            <button type="submit" class="btn btn-info">Dodaj</button>
+        {% endif %}
+    </form>
+
+{% endblock %}

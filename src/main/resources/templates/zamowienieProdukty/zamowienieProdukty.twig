@@ -1,0 +1,41 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Szczegóły Zamówienia Tabela{% endblock %}
+{% block header %}
+    Szczegóły zamówienia nr {{idZamowienie}} z dnia {{zamowienie.getDataZlozenia()}}
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa towaru</th>
+            <th scope="col">Liczba sztuk</th>
+            <th scope="col">Kategoria</th>
+            <th scope="col">Kategoria</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for zamowienieProdukt in zamowienieProdukty %}
+            <tr>
+                <td>{{ zamowienieProdukt.getIdZamowienieProdukt}}</td>
+                <td>{{ zamowienieProdukt.produkt.getNazwa }}</td>
+                <td>{{ zamowienieProdukt.getIlosc}}</td>
+                <td>{{ zamowienieProdukt.produkt.kategoria.getNazwa }}</td>
+                <td> <a class="btn btn-info" href="/zamowieniaProdukt/usun/{{ zamowienieProdukt.getIdZamowienieProdukt}}" role="button">Usuń</a> </td>
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+     {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+        <a class="btn btn-info" href="/zamowienieProdukty/addForm/{{idZamowienie}}" role="button">Dodaj towary do zamówienia</a>
+     {% endif %}
+
+        <a class="btn btn-info" href="/zamowienia/wyznaczTrase/{{idZamowienie}}" role="button">Wyznacz Trasę</a>
+
+{% endblock %}

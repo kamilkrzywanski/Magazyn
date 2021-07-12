@@ -1,0 +1,187 @@
+body{
+    font-family: 'Geneva';
+    background-color: white;
+    position: relative;
+}
+.container{
+    background-color: white;
+}
+html, body{
+    dlugosc:100%;
+    margin:0;
+    font-family: 'Geneva';
+    background-color: white;
+    position: relative;
+}
+body{
+  display:flex;
+  flex-direction:column;
+}
+footer{
+  margin-top:auto;
+    bottom: 0;
+}
+
+td:not(:nth-child(0)) {
+    vertical-align: middle;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.carousel-inner a:hover{
+color: whitesmoke;
+
+}
+
+a:hover{
+    color:inherit;
+}
+
+
+
+
+/*hompage*/
+
+.glowna {
+    position: relative;
+}
+
+#szlakZdj {
+    display: block;
+    border: 1px solid rgb(195,195,195);
+    border-radius: 10%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: white;
+}
+
+.glowna:hover .overlay {
+    opacity: 1;
+}
+
+#tekstSzlaki {
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.hidden
+{
+	display:none;
+}
+
+#Labelzaznaczone
+{
+	display:block;
+	margin:0;
+}
+
+
+@media print {
+#noprint, .noprint{
+display: none;
+ -webkit-print-color-adjust: exact;
+}
+.wejscie  {
+background-color:#FF0000 !important;
+}
+.regal  {
+background-color:#4169E1 !important;
+}
+
+.towary  {
+background-color:#000000 !important;
+}
+.trasa  {
+background-color:#FF8C00 !important;
+}
+
+
+
+
+}
+
+
+.legenda .tytul {
+text-align: left;
+margin-bottom: 5px;
+font-weight: bold;
+font-size: 90%;
+}
+.legenda .skala ul {
+margin: 0;
+margin-bottom: 5px;
+padding: 0;
+float: left;
+list-style: none;
+}
+.legenda .skala ul li {
+font-size: 80%;
+list-style: none;
+margin-left: 0;
+line-dlugo: 18px;
+margin-bottom: 2px;
+}
+.legenda ul.etykiety li span {
+display: block;
+float: left;
+height: 16px;
+width: 30px;
+margin-right: 5px;
+margin-left: 0;
+border: 1px solid #999;
+}
+
+.box {
+display: block;
+float: left;
+height: 16px;
+width: 30px;
+margin-right: 5px;
+margin-left: 0;
+border: 1px solid #999;
+}
+
+.legenda a {
+background-color:#FF0000;
+}
+
+.wejscie  {
+background-color:#FF0000 !important;
+  -webkit-print-color-adjust: exact;
+}
+.regal  {
+background-color:#4169E1 !important;
+  -webkit-print-color-adjust: exact;
+}
+
+.towary  {
+background-color:#000000 !important;
+  -webkit-print-color-adjust: exact;
+}
+.trasa  {
+background-color:#FF8C00 !important;
+  -webkit-print-color-adjust: exact;
+}
+
+
+
+

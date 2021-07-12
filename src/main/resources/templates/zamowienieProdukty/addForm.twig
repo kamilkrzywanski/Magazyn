@@ -1,0 +1,78 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania towaru do zamówienia
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania towaru do zamówienia</h2>
+{% endblock %}
+
+{% block form %}
+
+
+
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Kategoria</th>
+            <th style="width: 100%"  scope="col">Sztuk</th>
+
+            <th scope="col">Dodaj</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for produkts in produkty %}
+
+            <tr>
+
+                <td><form id="form{{ produkts.getIdProdukt}}" action="/zamowienieProdukty/dodaj" method="POST"><input type="hidden" name="id" value="1" /></form>{{ produkts.getIdProdukt}}</td>
+                <td>{{ produkts.getNazwa }}</td>
+                <td>{{ produkts.kategoria.getNazwa }}</td>
+
+
+
+                <td><input style="width: 100%"   form="form{{ produkts.getIdProdukt}}" type="number" name="ilosc" value="ilosc"  required/></td>
+
+
+
+                <td>
+                    <input type="hidden"  form="form{{ produkts.getIdProdukt}}" type="idZamowienie" name="idZamowienie" value="{{ idZamowienie }}" />
+                    <input type="hidden"  form="form{{ produkts.getIdProdukt}}" type="idProdukt" name="idProdukt" value="{{ produkts.getIdProdukt}}" />
+
+
+                    <input class="btn btn-info" form="form{{ produkts.getIdProdukt}}" type="submit" value="Dodaj" /></td>
+
+
+            </tr>
+
+
+
+        {%  endfor %}
+
+        </tbody>
+
+
+
+
+        <tfoot>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Kategoria</th>
+
+        </tr>
+        </tfoot>
+
+
+    </table>
+
+
+
+    <br/>
+{% endblock %}

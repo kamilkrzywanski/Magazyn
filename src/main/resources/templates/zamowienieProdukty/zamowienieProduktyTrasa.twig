@@ -1,0 +1,133 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Szczegóły Zamówienia Tabela{% endblock %}
+{% block header %}
+   {{g1}} Trasa zamówienia nr {{idZamowienie}}
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nr regału</th>
+            <th scope="col">Nazwa towaru</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for produkt in produkty %}
+            <tr>
+                <td>{{ produkt.regal.getIdRegal}}</td>
+                <td>{{ produkt.produkt.getNazwa }}</td>
+
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+        <a class="btn btn-info noprint" href="/zamowienia/zrealizuj/{{idZamowienie}}" role="button">Zrealizuj zamówienie</a>
+<a class="btn btn-info noprint" href="javascript:window.print()" id="printBtn">Drukuj zamówienie</a>
+
+
+
+
+
+
+
+
+<div class="modal-body row">
+  <div class="col-md-6">
+   <h3> Plan magazynu:</h3>
+<canvas id="myCanvas" width="{{magazyn.getSzerokosc*20}}" height="{{magazyn.getDlugosc*20}}" style="border:1px solid #d3d3d3;">
+             Your browser does not support the HTML5 canvas tag.</canvas>
+               </div>
+  <div class="col-md-6">
+
+<div class="legenda">
+<div class="tytul"> Legenda:</div>
+<div class="skala">
+  <ul class="etykiety">
+        <li ><span class="wejscie " ></span>Wejscie</li>
+        <li><span class="regal " ></span>Regał</li>
+        <li><span class="towary " ></span>Towary do zamówienia</li>
+        <li><span class="trasa " ></span>Trasa</li>
+
+
+  </ul>
+</div>
+</div>
+
+
+
+   </div>
+</div>
+
+            <script>
+            var regaly = new Array();
+
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+               ctx.fillStyle = "#4169E1";
+
+             {% for regal in regaly %}
+                    regaly [{{ regal.getIdRegal }}] = {
+                        xPoczatek: {{ regal.getxPoczatek/5 }},
+                        yPoczatek: {{ regal.getyPoczatek/5 }},
+                        dlugosc: {{ regal.getDlugosc/5 }},
+                        szerokosc: {{ regal.getSzerokosc/5 }}
+
+                        };
+
+                ctx.fillStyle = "#4169E1";
+
+                ctx.fillRect({{ regal.getxPoczatek/5 }}, {{ regal.getyPoczatek/5 }},  {{ regal.getSzerokosc/5 }}, {{ regal.getDlugosc/5 }});
+
+
+
+                ctx.save();
+                ctx.fillStyle = "#000000";
+                ctx.font = '20pt Arial';
+                ctx.textAlign = 'center';
+
+                ctx.translate({{ regal.getxPoczatek/5 + regal.getSzerokosc/10 }},{{ regal.getyPoczatek/5 +regal.getDlugosc/10 }});
+
+                ctx.fillText({{ regal.getIdRegal }} , 10, 10);
+                ctx.restore();
+
+                {% endfor %}
+
+
+                var c = document.getElementById("myCanvas");
+                var ctx = c.getContext("2d");
+
+                            for (i = 1; i < regaly.length; i++) {
+
+
+
+                            }
+                            ctx.fillStyle = "#FF0000   ";
+                            ctx.fillRect({{magazyn.getxWejscie/5}}, {{magazyn.getyWejscie/5}}, 6, 6);
+
+ ctx.fillStyle = "#FF8C00";
+
+            {% for punkt in punkty %}
+               {% for point in punkt %}
+               ctx.fillRect({{point.getX*2}}, {{point.getY*2}}, 3, 3);
+               {% endfor %}
+            {% endfor %}
+
+ ctx.fillStyle = "#000000";
+
+         {% for produkt in produkty %}
+            ctx.fillRect({{produkt.getxProduktu/5}}, {{produkt.getyProduktu/5}}, 5, 5);
+         {% endfor %}
+
+
+
+ ctx.fillStyle = "#000000";
+
+
+                </script>
+
+{% endblock %}

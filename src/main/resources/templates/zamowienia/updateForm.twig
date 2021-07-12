@@ -1,0 +1,44 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz Edycji Zamówienia
+{% endblock %}
+
+{% block header %}
+    <h2>    Formularz Edycji Zamówienia</h2>
+{% endblock %}
+
+{% block form %}
+
+    <form id="updateForm" action="/zamowienia/update/{{ zamowienie.getIdZamowienie}}" method="POST">
+        <fieldset>
+            <div class="form-group">
+                <label for="adres">Adres</label>
+                <input type="text" class="form-control" id="adres" name="adres" value="{{ zamowienie.getAdres }}" required>
+
+
+                <div class="form-group">
+                    <label for="selectPracownik">Pracownik</label>
+                    <select class="form-control" id="selectPracownik" name="selectPracownik" required>
+                        <option value="">--Wybierz pracownika--</option>
+                        {% for pracownik in pracownicy %}
+                            <option value="{{pracownik.idPracownik}}" >{{pracownik.getImie}} {{pracownik.getNazwisko}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+
+
+                <label for="data_zlozenia">Data złożenia</label>
+                <input type="date" class="form-control" id="data_zlozenia" name="data_zlozenia" value="{{ zamowienie.getDataZlozenia }}" required >
+                <label for="stan_magazynowy">Termin realizacji</label>
+                <input type="date" class="form-control" id="termin_realizacji" name="termin_realizacji" value="{{ zamowienie.getTerminRealizacji }}" required >
+
+
+        </fieldset>
+        <br/>
+        <button type="submit" class="btn btn-info">Aktualizuj</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Magazyny Tabela{% endblock %}
+{% block header %}
+    Lista magazynów
+{% endblock %}
+{% block main %}
+    {{siema}}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Długość [m]</th>
+            <th scope="col">Szerokość [m]</th>
+            <th scope="col">Wysokość [m]</th>
+            <th scope="col">Odstępy między regałami [cm]</th>
+            <th scope="col">Podgląd</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for magazyn in magazyny %}
+            <tr>
+                <td>{{ magazyn.getIdMagazyn}}</td>
+                <td>{{ magazyn.getNazwa }}</td>
+                <td>{{ magazyn.getDlugosc }}</td>
+                <td>{{ magazyn.getSzerokosc }}</td>
+                <td>{{ magazyn.getWysokosc }}</td>
+                <td>{{ magazyn.getOdstepy }}</td>
+                <td> <a class="btn btn-info" href="/regalyMagazynu/{{ magazyn.getIdMagazyn}}" role="button">Podgląd</a></td>
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+      {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+        <a class="btn btn-info" href="/magazyny/addForm" role="button">Dodaj magazyn</a>
+      {% endif %}
+
+
+
+
+{% endblock %}
+
+
+
+

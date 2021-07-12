@@ -1,0 +1,52 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Zamówienia Tabela{% endblock %}
+{% block header %}
+    Zamówienia
+{% endblock %}
+{% block main %}
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nr. zamówienia</th>
+            <th scope="col">Dane adresowe</th>
+            <th scope="col">Imie pracownika</th>
+            <th scope="col">Data złożenia</th>
+            <th scope="col">Termin realizacji</th>
+            <th scope="col">Podgląd</th>
+             {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+            <th scope="col">Edycja</th>
+            {% endif %}
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for zamowienie in zamowienia %}
+        {% if zamowienie.getStatus == 0 %}
+            <tr>
+                <td>{{ zamowienie.getIdZamowienie}}</td>
+                <td>{{ zamowienie.getAdres }}</td>
+                <td>{{ zamowienie.pracownik.getImie}}</td>
+                <td>{{ zamowienie.getDataZlozenia }}</td>
+                <td>{{ zamowienie.getTerminRealizacji }}</td>
+
+                <td> <a class="btn btn-info" href="/zamowieniaProdukt/{{ zamowienie.getIdZamowienie}}" role="button">Podgląd</a></td>
+
+                 {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+                <td> <a class="btn btn-info" href="/zamowienia/updateForm?id={{ zamowienie.getIdZamowienie}}" role="button">Edycja</a></td>
+                 {% endif %}
+
+
+            </tr>
+            {%endif%}
+        {%  endfor %}
+
+        </tbody>
+    </table>
+     {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+        <a class="btn btn-info" href="/zamowienia/addForm" role="button">Dodaj nowe zamówienie</a>
+     {% endif %}
+
+{% endblock %}

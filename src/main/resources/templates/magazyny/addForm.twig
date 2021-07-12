@@ -1,0 +1,39 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania Magazynu
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania Magazynu</h2>
+{% endblock %}
+
+{% block form %}
+        <form id="signupForm" action="/magazyny/dodaj" method="POST">
+        <fieldset>
+            <legend> </legend>
+            <div class="form-group">
+                <label for="nazwa">Nazwa</label>
+                <input type="text" class="form-control" id="nazwa" name="nazwa" required>
+                <label for="lokalizacja">Lokalizacja</label>
+                <input type="text" class="form-control" id="lokalizacja" name="lokalizacja" required>
+                <label for="dlugosc">Długość [m]</label>
+                <input type="number" class="form-control" id="dlugosc" name="dlugosc" required  min="0">
+                <label for="szerokosc">Szerokość [m]</label>
+                <input type="number" class="form-control" id="szerokosc" name="szerokosc" required min="0">
+                <label for="wysokosc">Wysokość [m]</label>
+                <input type="number" class="form-control" id="wysokosc" name="wysokosc" required min="0">
+                <label for="odstepy">Odstępy między regałami [cm]</label>
+                <input type="number" class="form-control" id="odstepy" name="odstepy" required min="0">
+                <label for="xWejscie">x Wejścia</label>
+                <input type="number" class="form-control" id="xWejscie" name="xWejscie" required min="0">
+                <label for="yWejscie">y Wejscia</label>
+                <input type="number" class="form-control" id="yWejscie" name="yWejscie" required min="0">
+
+            </div>
+        </fieldset>
+        <br/>
+            <button type="submit" class="btn btn-info">Dodaj magazyn</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Regały{% endblock %}
+{% block header %}
+
+{% endblock %}
+{% block main %}
+    <div class="row justify-content-center">
+        <h1 style="font-size: 70px">Magazyn: "{{ magazyn.getNazwa() }}"   </h1>
+       <center> <h2>Wymiary: {{magazyn.getSzerokosc}}m x {{magazyn.getDlugosc}}m</h2><center>
+       <h3> Odstępy miedzy regałami: {{magazyn.getOdstepy}} [cm] </h3>
+    </div>
+
+     <h2>Lista regałów:</h2>
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Nr regału</th>
+             <th scope="col">x,y początku [cm]</th>
+            <th scope="col">Liczba półek</th>
+
+            <th scope="col">długość regału [cm]</th>
+            <th scope="col">szerokość regału[cm]</th>
+            <th scope="col">wysokość regału [cm]</th>
+            <th scope="col">Podgląd</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for regal in regaly %}
+            <tr>
+                <td>{{ regal.getIdRegal}}</td>
+                <td>{{ regal.getxPoczatek }}, {{ regal.getyPoczatek }}</td>
+                <td>{{ regal.getIloscPolek }} ({{ regal.getWysokosc/regal.getIloscPolek | number_format(0)  }}cm)</td>
+                <td>{{ regal.getDlugosc }}</td>
+                 <td>{{ regal.getSzerokosc }}</td>
+                  <td>{{ regal.getWysokosc }}</td>
+
+                <td> <a class="btn btn-info" href="/regalProdukty/{{ regal.getIdRegal}}" role="button">Podgląd</a></td>
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+         {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+            <a class="btn btn-info" href="/regalyMagazynu/addForm/{{ magazyn.getIdMagazyn}}" role="button">Dodaj regał</a>
+         {% endif %}
+    </table>
+
+
+
+
+
+
+<div class="modal-body row">
+  <div class="col-md-6">
+   <h3> Plan magazynu:</h3>
+<canvas id="myCanvas" width="{{magazyn.getSzerokosc*10}}" height="{{magazyn.getDlugosc*10}}" style="border:1px solid #d3d3d3;">
+             Your browser does not support the HTML5 canvas tag.</canvas>
+               </div>
+  <div class="col-md-6">
+
+<div class='legenda'>
+<div class='tytul'> Legenda:</div>
+<div class='skala'>
+  <ul class='etykiety'>
+    <li><span style='background:#FF0000;'></span>Wejscie</li>
+        <li><span style='background:#2f05a3;'></span>Regał</li>
+
+  </ul>
+</div>
+</div>
+
+
+
+   </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+        <script>
+        var regaly = new Array();
+
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+           ctx.fillStyle = "#2f05a3";
+
+         {% for regal in regaly %}
+                regaly [{{ regal.getIdRegal }}] = {
+                    xPoczatek: {{ regal.getxPoczatek/10 }},
+                    yPoczatek: {{ regal.getyPoczatek/10 }},
+                    dlugosc: {{ regal.getDlugosc/10 }},
+                    szerokosc: {{ regal.getSzerokosc/10 }}
+
+                    };
+
+
+                      ctx.fillRect({{ regal.getxPoczatek/10 }}, {{ regal.getyPoczatek/10 }}, {{ regal.getSzerokosc/10 }},  {{ regal.getDlugosc/10 }}     );
+
+                {% endfor %}
+
+
+
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+
+
+                    for (i = 1; i < regaly.length; i++) {
+
+
+
+                    }
+
+                    ctx.fillStyle = "#FF0000";
+                    ctx.fillRect({{magazyn.getxWejscie/10}}, {{magazyn.getyWejscie/10}}, 8, 8);
+
+
+        </script>
+
+        <style type='text/css'>
+          .legenda .tytul {
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 90%;
+            }
+          .legenda .skala ul {
+            margin: 0;
+            margin-bottom: 5px;
+            padding: 0;
+            float: left;
+            list-style: none;
+            }
+          .legenda .skala ul li {
+            font-size: 80%;
+            list-style: none;
+            margin-left: 0;
+            line-height: 18px;
+            margin-bottom: 2px;
+            }
+          .legenda ul.etykiety li span {
+            display: block;
+            float: left;
+            height: 16px;
+            width: 30px;
+            margin-right: 5px;
+            margin-left: 0;
+            border: 1px solid #999;
+            }
+
+          .legenda a {
+            color: #777;
+            }
+        </style>
+
+{% endblock %}

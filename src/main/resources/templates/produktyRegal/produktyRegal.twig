@@ -1,0 +1,40 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Towary na regale {% endblock %}
+{% block header %}
+    Towary na regale nr:  {{idRegal}} w Magazynie "{{magazyn.getNazwa}}"
+       <a class="btn btn-info" href="/regalyMagazynu/{{ magazyn.getIdMagazyn }}" role="button">Powrót do listy regałów</a>
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Na regale [cm]</th>
+            <th scope="col">Nr półki</th>
+            <th scope="col">Kategoria</th>
+            <th scope="col">Edycja</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for produktRegal in produktyRegal %}
+            <tr>
+                <td>{{ produktRegal.getIdProduktRegal}}</td>
+                <td>{{ produktRegal.produkt.getNazwa }}</td>
+                <td>{{ (produktRegal.getNrKolejnosc-produktRegal.getNrKolejnosc%10)/10000  | number_format(0)  }}</td>
+                                <td>{{ produktRegal.getPolka }}</td>
+
+                <td>{{ produktRegal.produkt.kategoria.getNazwa }}</td>
+                <td> <a class="btn btn-info" href="/produkty/edycja/{{ produkt.getIdProdukt}}" role="button">Edytuj</a></td>
+
+            </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

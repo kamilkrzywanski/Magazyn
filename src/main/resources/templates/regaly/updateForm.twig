@@ -1,0 +1,46 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz Towaru
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz towaru</h2>
+{% endblock %}
+
+{% block form %}
+
+    <form id="updateForm" action="/regalyMagazynu/update/{{ produkt.getIdProdukt}}" method="POST">
+        <fieldset>
+            <div class="form-group">
+
+
+
+                  <label for="x_poczatku">Xpoczatku</label>
+                  <input type="numer" class="x_poczatku" id="x_poczatku" name="x_poczatku" required >
+
+                  <label for="y_poczatku">Y początku</label>
+                  <input type="number" class="form-control" id="y_poczatku" name="y_poczatku" required  >
+
+                  <label for="x_konca">X końca</label>
+                  <input type="number" class="form-control" id="x_konca" name="x_konca" required >
+
+                  <label for="y_konca">Y końca</label>
+                  <input type="number" class="form-control" id="y_konca" name="y_konca" " required >
+
+                  <label for="wysokosc">Wysokość</label>
+                  <input type="number" class="form-control" id="wysokosc" name="wysokosc" required >
+
+                  <label for="ilosc_polek">Liczba półek</label>
+                  <input type="text" class="form-control" id="ilosc_polek" name="ilosc_polek" required >
+
+                   <input type="hidden" id="magazyn" name="magazyn" value="3487">
+
+
+
+        </fieldset>
+        <br/>
+        <button type="submit" class="btn btn-info">Aktualizuj</button>
+    </form>
+
+{% endblock %}

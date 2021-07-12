@@ -1,0 +1,46 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Historia zamówień{% endblock %}
+{% block header %}
+    Historia Zamówień
+{% endblock %}
+{% block main %}
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">adres</th>
+            <th scope="col">Imie</th>
+            <th scope="col">Data złożenia</th>
+            <th scope="col">Termin Realizacji</th>
+            <th scope="col">Podgląd</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for zamowienie in zamowienia %}
+        {% if zamowienie.getStatus == 1 %}
+            <tr>
+                <td>{{ zamowienie.getIdZamowienie}}</td>
+                <td>{{ zamowienie.getAdres }}</td>
+                <td>{{ zamowienie.pracownik.getImie}}</td>
+                <td>{{ zamowienie.getDataZlozenia }}</td>
+                <td>{{ zamowienie.getTerminRealizacji }}</td>
+
+                <td> <a class="btn btn-info" href="/zamowieniaProdukt/{{ zamowienie.getIdZamowienie}}" role="button">Podgląd</a></td>
+
+
+
+
+            </tr>
+            {%endif%}
+        {%  endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

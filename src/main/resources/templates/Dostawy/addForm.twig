@@ -1,0 +1,192 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dostawy towaru
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dostawy towaru </h2>
+{% endblock %}
+
+
+{% block main %}
+
+
+
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Stan magazynowy</th>
+            <th scope="col">Kategoria</th>
+            <th style="width: 10%" scope="col">Magazyn</th>
+            <th style="width: 10%" scope="col">Nr regału</th>
+
+            <th style="width: 5%" scope="col">Sztuk</th>
+            <th style="width: 5%" scope="col">Nr półki</th>
+
+
+            <th  scope="col">Dodaj</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for produkt in produkty %}
+
+
+
+
+            <tr>
+
+
+
+
+
+
+                <td><form id="form{{ produkt.getIdProdukt}}" action="/dostawy/dodaj" method="POST"><input type="hidden" name="id" value="1" /></form>{{ produkt.getIdProdukt}}</td>
+                <td >{{ produkt.getNazwa }}</td>
+                <td >{{ produkt.getStanMagazynowy }}</td>
+                <td >{{ produkt.kategoria.getNazwa }}</td>
+
+                <td style="width: 17%">
+
+                 <select  class="form-control" id="selectMagazyn{{produkt.getIdProdukt}}" name="selectMagazyn"  required onchange="ChangeMagazyn({{produkt.getIdProdukt}})">
+                        <option value="0">Wybierz magazyn</option>
+                                        {% for magazyn in magazyny %}
+                                            <option value="{{magazyn.getIdMagazyn}}" >{{magazyn.getNazwa}}</option>
+                                        {% endfor %}
+                                    </select>
+
+
+                </td >
+
+
+                     <td style="width: 15%">
+
+
+                     <select   id="selectRegal{{produkt.getIdProdukt}}" name="selectRegal" class="form-control"  onchange="ChangeRegal({{produkt.getIdProdukt }})"> </select> </td>
+
+
+
+
+                <td style="width: 5%" ><input style="width: 80%" form="form{{ produkt.getIdProdukt}}" type="number" name="ilosc" value="" required min="1"  /></td>
+                <td style="width: 5%" ><input style="width: 80%" id="forma{{produkt.getIdProdukt}}" form="form{{ produkt.getIdProdukt}}" type="number" name="polka" value="" required min="1"  /></td>
+
+
+
+                <td>
+                    <input type="hidden"  form="form{{ produkt.getIdProdukt}}" type="idRegal" name="idRegal" value="{{ regal.getIdRegal }}" />
+                    <input type="hidden"  form="form{{ produkt.getIdProdukt}}" type="idProdukt" name="idProdukt" value="{{ produkt.getIdProdukt}}" />
+                    <input class="btn btn-info" form="form{{ produkt.getIdProdukt}}" type="submit" value="Dodaj" /></td>
+
+            </tr>
+
+
+
+        {%  endfor %}
+
+
+        </tbody>
+
+
+
+
+        <tfoot>
+
+        </tfoot>
+    </table>
+
+            <br/>
+
+
+
+
+
+
+
+             <script>
+                    var regaly = new Array();
+
+
+
+
+                    {% for regal in regaly %}
+                    regaly [{{ loop.index }}] = {
+                        idRegal: "{{ regal.getIdRegal }}",
+                        idMagazyn: {{ regal.getMagazyn.getIdMagazyn }},
+                        iloscP: {{ regal.getIloscPolek }}};
+
+
+                    {% endfor %}
+
+
+
+
+                    function ChangeMagazyn(idProdukt) {
+
+
+                        var magazynList = document.getElementById('selectMagazyn'+idProdukt);
+                        var regalList = document.getElementById('selectRegal'+idProdukt);
+                        var selMagazyn = magazynList.options[magazynList.selectedIndex].value;
+
+                        while (regalList.options.length) {
+                            regalList.remove(0);
+                        }
+
+
+                        if (regaly) {
+                            var i;
+
+                            var regal = new Option("Wybierz regał", 0);
+                            regalList.options.add(regal);
+                            for (i = 1; i < regaly.length; i++) {
+                                if ((regaly[i].idMagazyn) == selMagazyn) {
+                                    var regal = new Option((regaly[i].idRegal), i);
+                                    regalList.options.add(regal);
+                                }
+                            }
+
+
+                        }
+
+
+
+
+
+                    }
+
+
+                     function ChangeRegal(idProdukt) {
+
+                     var magazynList = document.getElementById('selectMagazyn'+idProdukt);
+                                             var regalList = document.getElementById('selectRegal'+idProdukt);
+                                             var selMagazyn = magazynList.options[magazynList.selectedIndex].value;
+ var selRegal = regalList.options[regalList.selectedIndex].value;
+                         document.getElementById('forma'+idProdukt).max = regaly[selRegal].iloscP;
+
+
+                document.getElementById('form'+idProdukt).action = `/dostawy/dodaj/${regaly[selRegal].idRegal}`;
+
+
+                     }
+
+
+
+
+
+
+
+
+
+
+
+
+                </script>
+
+
+
+{% endblock %}

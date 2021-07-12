@@ -1,0 +1,47 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania Towaru
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania towaru</h2>
+{% endblock %}
+
+{% block form %}
+        <form id="signupForm" action="/produkty/dodaj" method="POST">
+        <fieldset>
+            <legend> </legend>
+            <div class="form-group">
+                <label for="nazwa">Nazwa</label>
+                 <input type="text" class="form-control" id="nazwa" name="nazwa" required>
+
+
+                <label for="dlugosc">Długość [cm]</label>
+                <input type="number" class="form-control" id="dlugosc" name="dlugosc" required>
+                <label for="szerokosc">Szerokość [cm]</label>
+                <input type="number" class="form-control" id="szerokosc" name="szerokosc" required>
+                <label for="wysokosc">Wysokość [cm]</label>
+                <input type="number" class="form-control" id="wysokosc" name="wysokosc" required>
+
+
+                <div class="form-group">
+                    <label for="selectGrupa">Kategoria</label>
+                    <select class="form-control" id="selectKategoria" name="selectKategoria" required>
+                        <option value="">--Wybierz Kategorię--</option>
+                        {% for kategoria in kategorie %}
+                            <option value="{{kategoria.idKategoria}}" >{{kategoria.getNazwa}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+
+
+
+            </div>
+        </fieldset>
+        <br/>
+            <button type="submit" class="btn btn-info">Dodaj</button>
+    </form>
+
+{% endblock %}

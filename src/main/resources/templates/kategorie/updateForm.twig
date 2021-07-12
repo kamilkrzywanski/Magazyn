@@ -1,0 +1,27 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz towaru
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz edycji kategorii</h2>
+{% endblock %}
+
+{% block form %}
+
+    <form id="updateForm" action="/kategorie/update/{{ kategoria.getIdKategoria}}" method="POST">
+        <fieldset>
+            <div class="form-group">
+                <label for="nazwa">Nazwa</label>
+                <input type="text" class="form-control" id="nazwa" name="nazwa" value="{{ kategoria.getNazwa }} " required>
+
+
+
+                </div>
+        </fieldset>
+        <br/>
+        <button type="submit" class="btn btn-info">Aktualizuj</button>
+    </form>
+
+{% endblock %}

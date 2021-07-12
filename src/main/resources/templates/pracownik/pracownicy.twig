@@ -1,0 +1,53 @@
+{% extends '../baseTemplate.twig' %}
+
+{% block title %}Pracownicy tabela{% endblock %}
+{% block header %}
+    Pracownicy
+{% endblock %}
+{% block main %}
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Imie</th>
+                <th scope="col">Nazwisko</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Login</th>
+                <th scope="col">E-mail</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for pracownik in pracownicy %}
+        <tr>
+            <td>{{ pracownik.getIdPracownik }}</td>
+            <td>{{ pracownik.getImie }}</td>
+            <td>{{ pracownik.getNazwisko }}</td>
+            <td>{{ pracownik.getTelefon }}</td>
+            <td>{{ pracownik.uzytkownik.getLogin }}</td>
+            <td>{{ pracownik.uzytkownik.getEmail }}</td>
+
+            <td class="text-right">
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    {% if 'ROLE_kierownik' in LoggedUser.getAuthorities %}
+                        <abbr title="Edytuj"><a class="btn btn-sm bg-transparent" href="/pracownicy/form?id={{ pracownik.getIdPracownik }}">✏️</a></abbr>
+                        <abbr title="Usuń"><a class="btn btn-sm bg-transparent" href="/pracownicy/usun/{{ pracownik.getIdPracownik }}">🗑️</a></abbr>
+                    {% endif %}
+                </div>
+            </td>
+
+
+
+        </tr>
+        {%  endfor %}
+
+        </tbody>
+    </table>
+
+    {% if 'ROLE_administrator' in LoggedUser.getAuthorities %}
+        <a class="btn btn-info" href="/pracownicy/form" role="button">Dodaj</a>
+    {% endif %}
+
+{% endblock %}

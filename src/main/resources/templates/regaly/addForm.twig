@@ -1,0 +1,51 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania Regału
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania Regału do magazynu "{{magazyn.getNazwa}}" </h2>
+    Wyminary magazynu: {{ magazyn.getDlugosc }}m  x {{ magazyn.getSzerokosc }}m x {{ magazyn.getWysokosc }}m
+{% endblock %}
+
+{% block form %}
+        <form id="regalForm" action="/regalyMagazynu/dodaj/" method="POST">
+        <fieldset>
+            <legend> </legend>
+            <div class="form-group">
+
+
+
+                  <label for="x_poczatku">Xpoczatku</label>
+                  <input type="numer" class="form-control" id="x_poczatku" name="x_poczatku" required  min="0">
+                  <label for="y_poczatku">Y początku</label>
+                  <input type="number" class="form-control" id="y_poczatku" name="y_poczatku" required min="0" >
+
+
+                  <label for="dlugosc">Długość regału [cm]</label>
+                  <input type="number" class="form-control" id="dlugosc" name="dlugosc"  required min="0">
+
+
+
+
+
+
+                   <label for="szerokosc">Szerokość tegału [cm]</label>
+                   <input type="number" class="form-control" id="szerokosc" name="szerokosc" required min="0">
+
+                   <label for="wysokosc">Wysokość regału [cm]</label>
+                    <input type="number" class="form-control" id="wysokosc" name="wysokosc" required min="0" >
+
+                  <label for="ilosc_polek">Liczba półek</label>
+                  <input type="text" class="form-control" id="ilosc_polek" name="ilosc_polek" required min="0">
+
+ <input type="hidden" id="magazyn" name="magazyn" value="{{magazyn.getIdMagazyn}}">
+
+            </div>
+        </fieldset>
+        <br/>
+            <button type="submit" class="btn btn-info">Dodaj</button>
+    </form>
+
+{% endblock %}

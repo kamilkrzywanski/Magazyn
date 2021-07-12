@@ -1,0 +1,24 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+Formularz dodania Kategorii
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania Kategorii</h2>
+{% endblock %}
+
+{% block form %}
+        <form id="signupForm" action="/kategorie/dodaj" method="POST">
+        <fieldset>
+            <legend> </legend>
+            <div class="form-group">
+                <label for="nazwa">Nazwa</label>
+                <input type="text" class="form-control" id="nazwa" name="nazwa" required minlength="3" maxlength="255">
+            </div>
+        </fieldset>
+        <br/>
+            <button type="submit" class="btn btn-info">Dodaj</button>
+    </form>
+
+{% endblock %}

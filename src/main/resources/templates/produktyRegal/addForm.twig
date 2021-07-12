@@ -1,0 +1,89 @@
+{% extends '../formTemplate.twig' %}
+
+{% block title %}
+    Formularz dodania Regału
+{% endblock %}
+
+{% block header %}
+    <h2>Formularz dodania towaru na regał </h2>
+{% endblock %}
+
+
+{% block form %}
+
+
+
+
+    <table id="myTable" class="table table-striped align-middle table-sm">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Stan magazynowy</th>
+            <th scope="col">Kategoria</th>
+            <th style="width: 100%" scope="col">Sztuk</th>
+            <th style="width: 100%" scope="col">Nr półki</th>
+
+            <th scope="col">Dodaj</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for produkt in produkty %}
+
+
+
+
+            <tr>
+
+
+
+
+
+
+                <td><form id="form{{ produkt.getIdProdukt}}" action="/regalProdukty/dodaj" method="POST"><input type="hidden" name="id" value="1" /></form>{{ produkt.getIdProdukt}}</td>
+                <td>{{ produkt.getNazwa }}</td>
+                <td>{{ produkt.getStanMagazynowy }}</td>
+                <td>{{ produkt.kategoria.getNazwa }}</td>
+
+
+
+                <td ><input style="width: 100%" form="form{{ produkt.getIdProdukt}}" type="number" name="ilosc" value="ilosc" required min="1" max="{{ produkt.getStanMagazynowy}}" /></td>
+                <td ><input style="width: 100%" form="form{{ produkt.getIdProdukt}}" type="number" name="polka" value="polka" required min="1" max ="{{ regal.getIloscPolek}}" /></td>
+
+
+
+                <td>
+                    <input type="hidden"  form="form{{ produkt.getIdProdukt}}" type="idRegal" name="idRegal" value="{{ regal.getIdRegal }}" />
+                    <input type="hidden"  form="form{{ produkt.getIdProdukt}}" type="idProdukt" name="idProdukt" value="{{ produkt.getIdProdukt}}" />
+                    <input class="btn btn-info" form="form{{ produkt.getIdProdukt}}" type="submit" value="Dodaj" /></td>
+
+            </tr>
+
+
+
+        {%  endfor %}
+
+
+
+
+
+
+
+        </tbody>
+
+
+
+
+        <tfoot>
+
+        </tfoot>
+    </table>
+
+            <br/>
+
+
+
+{% endblock %}
