@@ -41,7 +41,7 @@ public class Uzytkownik
 	private Pracownik pracownik;
 
 
-
+	//
 
 
 	public Uzytkownik() {}  // hibernate wymaga konstruktora bezparametrowego
